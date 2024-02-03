@@ -30,3 +30,8 @@ class CreateFee(CreateView):
     model = Fee
     success_url = reverse_lazy("allstudent")
     fields = "__all__"
+
+
+class DeleteFee(DeleteView):
+    model = Fee
+    success_url = reverse_lazy("allstudent")
