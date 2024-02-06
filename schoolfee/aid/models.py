@@ -10,9 +10,9 @@ class AidName(models.Model):
 
 
 class FeeAid(models.Model):
-    student = models.Foreignkey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
     Aid_mount = models.PositiveIntegerField()
-    Aid_type = models.Foreignkey(AidName, max_length=100)
+    Aid_type = models.ForeignKey(AidName, on_delete=models.CASCADE, max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "fee",
     "appfee",
     "payment",
+    "aid",
 ]
 
 MIDDLEWARE = [
