@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 from .models import AidName, FeeAid
 from django.urls import reverse_lazy
 
-# FeeAid
+# from django.http import HttpResponseBadRequest
+from django.http import Http404, HttpResponse
 
 
 class CreateAid(CreateView):
@@ -17,9 +18,12 @@ class ListAid(ListView):
     model = AidName
 
 
-class DeleteAid(DeleteView):
-    model = AidName
-    success_url = reverse_lazy("allstudent")
+def deleteaid(request, id):
+    try:
+        deleteaid = AidName.objects.get(pk=id).delete()
+    except AidName.DoesNotExist:
+        return render(request, "aid/aid_not_found.html")
+    return render(request, "aid/aidname_confirm_delete.html", {"deleteaid": deleteaid})
 
 
 class CreateFeeAid(CreateView):
@@ -31,6 +35,11 @@ class ListFeeAid(ListView):
     model = FeeAid
 
 
-class DeleteAid(DeleteView):
-    model = FeeAid
-    success_url = reverse_lazy("allstudent")
+def deletefeeaid(request, id):
+    try:
+        deletefeeaid = FeeAid.objects.get(pk=id).delete()
+    except AidName.DoesNotExist:
+        return render(request, "aid/feeaid_not_found.html")
+    return render(
+        request, "aid/feeaid_confirm_delete.html", {"deletefeeaid": deletefeeaid}
+    )
